@@ -26,10 +26,11 @@ public class CadFornecedor extends javax.swing.JFrame {
      */
     public CadFornecedor() {
         initComponents();
+        modelo.addColumn("Id");
         modelo.addColumn("CNPJ");
         modelo.addColumn("Nome");
         modelo.addColumn("Endereco");
-//        tblFornecedor.setModel(modelo);
+        tblFornecedores.setModel(modelo);
         this.getFornecedores();
     }
 
@@ -49,8 +50,16 @@ public class CadFornecedor extends javax.swing.JFrame {
         txtForNome = new javax.swing.JTextField();
         txtForEnd = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblFornecedores = new javax.swing.JTable();
+        txtPesquisar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("CNPJ");
 
@@ -65,31 +74,74 @@ public class CadFornecedor extends javax.swing.JFrame {
             }
         });
 
+        tblFornecedores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblFornecedoresMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblFornecedores);
+
+        jButton1.setText("Editar");
+
+        jButton2.setText("Excluir");
+
+        btnPesquisar.setText("Pesquisar");
+
+        jLabel4.setText("Código");
+
+        txtId.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtForCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                    .addComponent(txtForNome)
-                    .addComponent(txtForEnd))
-                .addContainerGap(124, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
-                .addGap(51, 51, 51))
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtForCnpj)
+                            .addComponent(txtForNome)
+                            .addComponent(txtForEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtForCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -101,9 +153,20 @@ public class CadFornecedor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtForEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addComponent(btnSalvar)
-                .addGap(55, 55, 55))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -116,17 +179,31 @@ public class CadFornecedor extends javax.swing.JFrame {
         fornecedor.setNome(txtForNome.getText());
         fornecedor.setEndereco(txtForEnd.getText());
         
-        fornecedor.setCriadoEm(new Date());
-        if (!txtForCnpj.getText().isEmpty()) {
-            fornecedor.setCnpj(Integer.parseInt(txtForCnpj.getText()));
+//        fornecedor.setCriadoEm(new Date());
+        if (!txtId.getText().isEmpty()) {
+            fornecedor.setId(Integer.parseInt(txtId.getText()));
         }
 
-        if (fornecedor.getCnpj() == 0) {
+        if (fornecedor.getId() == 0) {
             this.onCreate(fornecedor);
         } else {
             this.onUpdate(fornecedor);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void tblFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFornecedoresMouseClicked
+        // TODO add your handling code here:
+        int row = tblFornecedores.getSelectedRow();
+        System.out.println(":: " + row);
+        Fornecedor f = new Fornecedor();
+        f = fornecedores.get(row);
+        System.out.println("ID:: " + f.getId());
+        Fornecedor fornecedorForm = new Fornecedor();
+        fornecedorForm = getFornecedorById(f.getId());
+        txtForCnpj.setText(Integer.toString(fornecedorForm.getCnpj()));
+        txtForNome.setText(fornecedorForm.getNome());
+        txtForEnd.setText(fornecedorForm.getEndereco());
+    }//GEN-LAST:event_tblFornecedoresMouseClicked
 
     
     private void onCreate(Fornecedor fornecedor) {
@@ -138,7 +215,7 @@ public class CadFornecedor extends javax.swing.JFrame {
             this.getFornecedores();
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro ao inserir Fornecedor!");
+            JOptionPane.showMessageDialog(null, "Erro ao inserir fornecedor!");
         }
     }
     
@@ -166,14 +243,24 @@ public class CadFornecedor extends javax.swing.JFrame {
         fornecedores = new ArrayList();
         try {
             fornecedores = dao.Select();
-            for (Fornecedor c : fornecedores) {
-                this.modelo.addRow(new Object[]{c.getCnpj(), c.getNome(), c.getEndereco()});
+            for (Fornecedor f : fornecedores) {
+                this.modelo.addRow(new Object[]{f.getId(), f.getCnpj(), f.getNome(), f.getEndereco()});
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar Fornecedores: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao buscar fornecedores: " + e.getMessage());
         }
     }
     
+    private Fornecedor getFornecedorById(int id) {
+        Fornecedor f = new Fornecedor();
+        FornecedorDAO dao = new FornecedorDAO();
+        try {
+            f = dao.SelectOne(id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar fornecedor: " + e.getMessage());
+        }
+        return f;
+    }
     /**
      * @param args the command line arguments
      */
@@ -210,12 +297,20 @@ public class CadFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblFornecedores;
     private javax.swing.JTextField txtForCnpj;
     private javax.swing.JTextField txtForEnd;
     private javax.swing.JTextField txtForNome;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
 }

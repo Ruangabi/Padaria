@@ -7,6 +7,8 @@ package br.com.padaria.dal;
 import br.com.padaria.dal.ModuloConexao;
 import br.com.padaria.telas.CadCliente;
 import br.com.padaria.telas.CadCliente;
+import br.com.padaria.telas.CadFornecedor;
+import br.com.padaria.telas.CadUsuario;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -81,6 +83,11 @@ Connection conexao = null;
         MenCad.add(MenCadCli);
 
         MenCadForn.setText("Fornecedor");
+        MenCadForn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenCadFornActionPerformed(evt);
+            }
+        });
         MenCad.add(MenCadForn);
 
         MenCadFunc.setText("Funcionário");
@@ -90,6 +97,11 @@ Connection conexao = null;
         MenCad.add(MenCadProd);
 
         MenCadUsu.setText("Usuários");
+        MenCadUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenCadUsuActionPerformed(evt);
+            }
+        });
         MenCad.add(MenCadUsu);
 
         jMenuBar1.add(MenCad);
@@ -134,6 +146,20 @@ Connection conexao = null;
         cliente.setVisible(true);
         Desktop.add(cliente);
     }//GEN-LAST:event_MenCadCliActionPerformed
+
+    private void MenCadFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFornActionPerformed
+        // TODO add your handling code here:
+        CadFornecedor fornecedor = new CadFornecedor ();
+        fornecedor.setVisible(true);
+        Desktop.add(fornecedor);
+    }//GEN-LAST:event_MenCadFornActionPerformed
+
+    private void MenCadUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadUsuActionPerformed
+        // TODO add your handling code here:
+        CadUsuario usuario = new CadUsuario();
+        usuario.setVisible(true);
+        Desktop.add(usuario);
+    }//GEN-LAST:event_MenCadUsuActionPerformed
 
     /**
      * @param args the command line arguments

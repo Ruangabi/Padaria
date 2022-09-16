@@ -3,18 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/prjpadaria/src/br/com/padaria/dal/ModuloConexao.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/prjpadaria/src/br/com/padaria/dao/ClienteDAO.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/prjpadaria/src/br/com/padaria/telas/CadCliente.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/prjpadaria/src/br/com/padaria/dal/TelaPrincipal.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/prjpadaria/src/br/com/padaria/models/Cliente.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/prjpadaria/src/br/com/padaria/dal/TelaLogin.java</file>
-=======
-            <file>file:/C:/Users/Aluno/Desktop/Padaria-main/Padaria-main/src/br/com/padaria/telas/CadFornecedor.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/Padaria-main/Padaria-main/src/br/com/padaria/dao/FornecedorDAO.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/Padaria-main/Padaria-main/src/br/com/padaria/models/Fornecedor.java</file>
->>>>>>> ff236be (commit)
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/padaria2/src/br/com/padaria/telas/CadFornecedor.java</file>
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/padaria2/src/br/com/padaria/telas/CadUsuario.java</file>
         </group>
     </open-files>
 </project-private>

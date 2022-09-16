@@ -4,7 +4,7 @@
  */
 package br.com.padaria.dao;
 
-import br.com.padaria.models.Fornecedor;
+import br.com.padaria.models.Usuario;
 import conexao.Conexao;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,66 +20,70 @@ import java.util.logging.Logger;
  *
  * @author Aluno
  */
-public class FornecedorDAO {
-
-    public List<Fornecedor> Select() throws SQLException, ClassNotFoundException {
+public class UsuarioDAO {
+    public List<Usuario> Select() throws SQLException, ClassNotFoundException {
 
         Connection con = Conexao.getConnection(); // Busca uma conexão com o banco de dados
         PreparedStatement stmt = null;
         ResultSet rs = null; // Objeto que armazena o resultado de uma busca em uma estrutura de dados que pode ser percorrida
 // Instanciando uma nova lista para receber os valores do banco
-        List<Fornecedor> fornecedores = new ArrayList<>();
-
-        try {
+        List<Usuario> usuarios = new ArrayList<>();
+        
+         try {
             // Inserindo o comando SQL a ser usado
-            stmt = con.prepareStatement("SELECT * FROM fornecedor");
+            stmt = con.prepareStatement("SELECT * FROM usuarios");
             rs = stmt.executeQuery(); // Executa o comando SQL
             /* Loop responsável pela busca dos dados no banco que o repetirá até que não
  haja valores */
             while (rs.next()) {
 
-                Fornecedor fornecedor = new Fornecedor();
-                fornecedor.setId(rs.getInt("id"));
-                fornecedor.setCnpj(rs.getInt("cnpj"));
-                fornecedor.setNome(rs.getString("nome"));
-                fornecedor.setEndereco(rs.getString("endereco"));
-                fornecedores.add(fornecedor); // Adiciona o objeto na lista
+                Usuario usuario = new Usuario();
+                usuario.setIduser(rs.getInt("iduser"));
+                usuario.setFone(rs.getString("fone"));
+                usuario.setLogin(rs.getString("login"));
+                usuario.setSenha(rs.getString("senha"));
+                usuario.setPerfil(rs.getString("perfil"));
+                usuarios.add(usuario); // Adiciona o objeto na lista
             }
         } catch (SQLException ex) { // Tratamento das exceções
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return fornecedores;   // Retorna a lista
+        return usuarios;   // Retorna a lista  
+        
     }
-
-    public Fornecedor SelectOne(int id) throws SQLException, ClassNotFoundException {
+    
+    public Usuario SelectOne(int iduser) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.getConnection();
 
         PreparedStatement stmt = null;
 
         ResultSet rs = null;
-        Fornecedor fornecedor = new Fornecedor();
+        Usuario usuario = new Usuario();
         try {
-            stmt = con.prepareStatement("SELECT * FROM fornecedor AS f WHERE f.id = ?");
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("SELECT * FROM usuarios AS u WHERE u.iduser = ?");
+            stmt.setInt(1, iduser);
 
             rs = stmt.executeQuery();
 
             while (rs.next()) {
+                usuario.setIduser(rs.getInt("iduser"));
 
-                fornecedor.setCnpj(rs.getInt("cnpj"));
+                usuario.setFone(rs.getString("fone"));
 
-                fornecedor.setNome(rs.getString("nome"));
+                usuario.setLogin(rs.getString("login"));
 
-                fornecedor.setEndereco(rs.getString("endereco"));
+                usuario.setSenha(rs.getString("senha"));
+                
+                usuario.setPerfil(rs.getString("perfil"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return fornecedor;
+        return usuario;
     }
-
-    public void Insert(Fornecedor f) throws SQLException, ClassNotFoundException {
+    
+    public void Insert(Usuario u) throws SQLException, ClassNotFoundException {
 
         Connection con = Conexao.getConnection(); // Busca uma conexão com o banco de dados
 
@@ -90,13 +94,14 @@ public class FornecedorDAO {
         try {
 
             // Inserindo o comando SQL a ser usado
-            stmt = con.prepareStatement("INSERT INTO fornecedor VALUES (DEFAULT, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO usuarios VALUES (DEFAULT, ?, ?, ?, ?)");
 
             // O método setString, define que o valor passado será do tipo inteiro
-            stmt.setInt(1, f.getCnpj());
-            stmt.setString(2, f.getNome());
-            stmt.setString(3, f.getEndereco());
-//            stmt.setDate(4, new Date(f.getCriadoEm().getTime()));
+            stmt.setString(1, u.getFone());
+            stmt.setString(2, u.getLogin());
+            stmt.setString(3, u.getSenha());
+            stmt.setString(4, u.getPerfil());
+            
 
             // Método responsável por fazer a alteração no banco de dados
             stmt.executeUpdate();
@@ -116,16 +121,18 @@ public class FornecedorDAO {
             con.setAutoCommit(true);
         }
     }
-
-    public void Update(Fornecedor fornecedor) throws SQLException, ClassNotFoundException {
+    
+    public void Update(Usuario usuario) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.getConnection();
         con.setAutoCommit(false);
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("UPDATE fornecedor SET cnpj = ?, nome = ?, endereco =? WHERE id = ?");
-            stmt.setInt(1, fornecedor.getCnpj());
-            stmt.setString(2, fornecedor.getNome());
-            stmt.setString(3, fornecedor.getEndereco());
+            stmt = con.prepareStatement("UPDATE usuarios SET fone = ?, login = ?, senha = ?, perfil = ? WHERE iduser = ?");
+            stmt.setString(1, usuario.getFone());
+            stmt.setString(2, usuario.getLogin());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setString(4, usuario.getPerfil());
+            stmt.setInt(5, usuario.getIduser());
             stmt.executeUpdate();
             con.commit();
         } catch (SQLException ex) {
