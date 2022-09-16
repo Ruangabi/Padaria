@@ -6,6 +6,7 @@ package br.com.padaria.telas;
 
 import br.com.padaria.dao.FornecedorDAO;
 import br.com.padaria.models.Fornecedor;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Aluno
  */
 public class CadFornecedor extends javax.swing.JFrame {
-    
+
     private DefaultTableModel modelo = new DefaultTableModel();
     List<Fornecedor> fornecedores = new ArrayList();
 
@@ -52,9 +53,7 @@ public class CadFornecedor extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFornecedores = new javax.swing.JTable();
-        txtPesquisar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtPesquisa = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -74,15 +73,17 @@ public class CadFornecedor extends javax.swing.JFrame {
             }
         });
 
+        tblFornecedores = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         tblFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tblFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,11 +93,12 @@ public class CadFornecedor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblFornecedores);
 
-        jButton1.setText("Editar");
-
-        jButton2.setText("Excluir");
-
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Código");
 
@@ -112,12 +114,10 @@ public class CadFornecedor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,15 +157,10 @@ public class CadFornecedor extends javax.swing.JFrame {
                 .addComponent(btnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
 
@@ -178,7 +173,8 @@ public class CadFornecedor extends javax.swing.JFrame {
         fornecedor.setCnpj(Integer.parseInt(txtForCnpj.getText()));
         fornecedor.setNome(txtForNome.getText());
         fornecedor.setEndereco(txtForEnd.getText());
-        
+        fornecedor.setId(Integer.parseInt(txtId.getText()));
+
 //        fornecedor.setCriadoEm(new Date());
         if (!txtId.getText().isEmpty()) {
             fornecedor.setId(Integer.parseInt(txtId.getText()));
@@ -203,9 +199,26 @@ public class CadFornecedor extends javax.swing.JFrame {
         txtForCnpj.setText(Integer.toString(fornecedorForm.getCnpj()));
         txtForNome.setText(fornecedorForm.getNome());
         txtForEnd.setText(fornecedorForm.getEndereco());
+        txtId.setText(Integer.toString(fornecedorForm.getId()));
     }//GEN-LAST:event_tblFornecedoresMouseClicked
 
-    
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:
+        this.modelo.setNumRows(0);
+        FornecedorDAO dao = new FornecedorDAO();
+        fornecedores = new ArrayList();
+        try {
+            fornecedores = dao.Pesquisar(txtPesquisa.getText());
+            for (Fornecedor f : fornecedores) {
+
+                this.modelo.addRow(new Object[]{f.getId(), f.getCnpj(), f.getNome(), f.getEndereco()});
+            }
+        } catch (Exception e) {
+            System.out.println("Erro..." + e.getMessage());
+
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
     private void onCreate(Fornecedor fornecedor) {
         FornecedorDAO dao = new FornecedorDAO();
         try {
@@ -218,7 +231,7 @@ public class CadFornecedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao inserir fornecedor!");
         }
     }
-    
+
     private void onUpdate(Fornecedor fornecedor) {
         try {
             FornecedorDAO dao = new FornecedorDAO();
@@ -230,13 +243,13 @@ public class CadFornecedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + e.getMessage());
         }
     }
-    
+
     private void resetForm() {
         txtForCnpj.setText("");
         txtForNome.setText("");
         txtForEnd.setText("");
     }
-    
+
     private void getFornecedores() {
         this.modelo.setNumRows(0);
         FornecedorDAO dao = new FornecedorDAO();
@@ -250,7 +263,7 @@ public class CadFornecedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao buscar fornecedores: " + e.getMessage());
         }
     }
-    
+
     private Fornecedor getFornecedorById(int id) {
         Fornecedor f = new Fornecedor();
         FornecedorDAO dao = new FornecedorDAO();
@@ -261,6 +274,7 @@ public class CadFornecedor extends javax.swing.JFrame {
         }
         return f;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -299,8 +313,6 @@ public class CadFornecedor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -311,6 +323,6 @@ public class CadFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtForEnd;
     private javax.swing.JTextField txtForNome;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtPesquisar;
+    private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

@@ -65,6 +65,36 @@ public class FornecedorDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
+                fornecedor.setId(rs.getInt("id"));
+
+                fornecedor.setCnpj(rs.getInt("cnpj"));
+
+                fornecedor.setNome(rs.getString("nome"));
+
+                fornecedor.setEndereco(rs.getString("endereco"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return fornecedor;
+    }
+
+    public Fornecedor SelectOne(String nome) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.getConnection();
+
+        PreparedStatement stmt = null;
+
+        ResultSet rs = null;
+        Fornecedor fornecedor = new Fornecedor();
+        try {
+            stmt = con.prepareStatement("SELECT * FROM fornecedor AS f WHERE f.nome like ?");
+            stmt.setString(1, nome);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                fornecedor.setId(rs.getInt("id"));
 
                 fornecedor.setCnpj(rs.getInt("cnpj"));
 
@@ -117,6 +147,34 @@ public class FornecedorDAO {
         }
     }
 
+    public List<Fornecedor> Pesquisar(String termo) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Fornecedor> fornecedores = new ArrayList();
+
+        try {
+
+            stmt = con.prepareStatement("SELECT * FROM fornecedor WHERE nome like ?");
+
+            stmt.setString(1, "%" + termo + "%");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Fornecedor f = new Fornecedor();
+                f.setId(rs.getInt("id"));
+                f.setCnpj(rs.getInt("cnpj"));
+                f.setNome(rs.getString("nome"));
+                f.setEndereco(rs.getString("endereco"));
+                fornecedores.add(f);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fornecedores;
+    }
+
     public void Update(Fornecedor fornecedor) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.getConnection();
         con.setAutoCommit(false);
@@ -126,6 +184,7 @@ public class FornecedorDAO {
             stmt.setInt(1, fornecedor.getCnpj());
             stmt.setString(2, fornecedor.getNome());
             stmt.setString(3, fornecedor.getEndereco());
+            stmt.setInt(4, fornecedor.getId());
             stmt.executeUpdate();
             con.commit();
         } catch (SQLException ex) {
@@ -141,4 +200,5 @@ public class FornecedorDAO {
             con.setAutoCommit(true);
         }
     }
+
 }
