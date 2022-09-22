@@ -4,6 +4,7 @@
  */
 package br.com.padaria.dao;
 
+import br.com.padaria.models.Fornecedor;
 import br.com.padaria.models.Usuario;
 import conexao.Conexao;
 import java.sql.Connection;
@@ -83,6 +84,37 @@ public class UsuarioDAO {
         return usuario;
     }
     
+    public Usuario SelectOne(String nome) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.getConnection();
+
+        PreparedStatement stmt = null;
+
+        ResultSet rs = null;
+        Usuario u = new Usuario();
+        try {
+            stmt = con.prepareStatement("SELECT * FROM usuarios AS u WHERE u.login like ?");
+            stmt.setString(1, nome);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                u.setIduser(rs.getInt("iduser"));
+
+                u.setFone(rs.getString("fone"));
+
+                u.setLogin(rs.getString("login"));
+
+                u.setSenha(rs.getString("senha"));
+                
+                u.setPerfil(rs.getString("perfil"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return u;
+    }
+    
     public void Insert(Usuario u) throws SQLException, ClassNotFoundException {
 
         Connection con = Conexao.getConnection(); // Busca uma conexão com o banco de dados
@@ -120,6 +152,38 @@ public class UsuarioDAO {
             }
             con.setAutoCommit(true);
         }
+    }
+    
+    public List<Usuario> Pesquisar(String termo) throws SQLException, ClassNotFoundException {
+        Connection con = Conexao.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Usuario> usuarios = new ArrayList();
+
+        try {
+            
+            
+            stmt = con.prepareStatement("SELECT * FROM usuarios WHERE login like ? or perfil like ?");
+            
+
+            stmt.setString(1, "%" + termo + "%");
+            stmt.setString(2, "%" + termo + "%");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setIduser(rs.getInt("iduser"));
+                u.setFone(rs.getString("fone"));
+                u.setLogin(rs.getString("login"));
+                u.setSenha(rs.getString("senha"));
+                u.setPerfil(rs.getString("perfil"));
+                usuarios.add(u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuarios;
     }
     
     public void Update(Usuario usuario) throws SQLException, ClassNotFoundException {
