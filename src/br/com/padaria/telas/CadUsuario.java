@@ -309,12 +309,12 @@ public class CadUsuario extends javax.swing.JFrame {
         UsuarioDAO dao = new UsuarioDAO();
         try {
             dao.Insert(usuario);
-            JOptionPane.showMessageDialog(null, "Usuario salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso!");
             this.resetForm();
             this.getUsuarios();
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro ao inserir usuario");
+            JOptionPane.showMessageDialog(null, "Erro ao inserir usuário!");
         }
     }
     
@@ -322,7 +322,7 @@ public class CadUsuario extends javax.swing.JFrame {
         try {
             UsuarioDAO dao = new UsuarioDAO();
             dao.Update(usuario);
-            JOptionPane.showMessageDialog(null, "Usuario atualizado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
             this.resetForm();
             this.getUsuarios();
         } catch (Exception e) {

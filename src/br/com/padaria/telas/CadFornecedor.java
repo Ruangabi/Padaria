@@ -59,6 +59,7 @@ public class CadFornecedor extends javax.swing.JFrame {
         txtId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de fornecedores");
         setPreferredSize(new java.awt.Dimension(730, 600));
         setResizable(false);
 

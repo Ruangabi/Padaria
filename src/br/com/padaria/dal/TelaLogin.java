@@ -40,16 +40,19 @@ public void logar() {
             String perfil=rs.getString(5);
             //System.out.println(perfil);
             //a estrutura abaixo faz o tratamento do perfil do usuário
-            if (perfil.equals("admin")) {   
+            if (perfil.equals("Admin")) {   
             //chama a tela principal
             TelaPrincipal principal = new TelaPrincipal();
-            
+//            principal.MenCadUsu.setEnabled(false);
+            TelaPrincipal.habilitaUsuario(true);
             principal.setVisible(true);
           
             this.dispose();
         }else{
             TelaPrincipal principal = new TelaPrincipal();
+            TelaPrincipal.habilitaUsuario(false);
             principal.setVisible(true);
+            
            
             this.dispose();
         }

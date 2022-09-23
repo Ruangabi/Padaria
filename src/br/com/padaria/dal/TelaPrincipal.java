@@ -51,6 +51,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenCadVend = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(100, 100, 0, 0));
         setPreferredSize(new java.awt.Dimension(900, 700));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -165,6 +166,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText(formatador.format(data));
     }//GEN-LAST:event_formWindowActivated
 
+    public static void habilitaUsuario(boolean valor) {
+        TelaPrincipal.MenCadUsu.setEnabled(valor);
+    }
     /**
      * @param args the command line arguments
      */
@@ -207,7 +211,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenCadForn;
     private javax.swing.JMenuItem MenCadFunc;
     private javax.swing.JMenuItem MenCadProd;
-    private javax.swing.JMenuItem MenCadUsu;
+    public static javax.swing.JMenuItem MenCadUsu;
     private javax.swing.JMenu MenCadVend;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblData;
