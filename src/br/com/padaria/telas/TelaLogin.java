@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.padaria.dal;
+package br.com.padaria.telas;
 
+import br.com.padaria.telas.TelaPrincipal;
 import java.sql.*;
+import br.com.padaria.dal.ModuloConexao;
 import br.com.padaria.dal.ModuloConexao;
 import java.awt.Color;
 import javax.swing.JOptionPane;

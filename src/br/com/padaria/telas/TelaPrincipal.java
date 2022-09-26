@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.padaria.dal;
+package br.com.padaria.telas;
 
+import br.com.padaria.dal.ModuloConexao;
 import br.com.padaria.dal.ModuloConexao;
 import br.com.padaria.telas.CadCliente;
 import br.com.padaria.telas.CadCliente;
@@ -84,6 +85,11 @@ Connection conexao = null;
         MenCad.add(MenCadForn);
 
         MenCadFunc.setText("Funcionário");
+        MenCadFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenCadFuncActionPerformed(evt);
+            }
+        });
         MenCad.add(MenCadFunc);
 
         MenCadProd.setText("Produto");
@@ -134,6 +140,14 @@ Connection conexao = null;
         cliente.setVisible(true);
         Desktop.add(cliente);
     }//GEN-LAST:event_MenCadCliActionPerformed
+
+    private void MenCadFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFuncActionPerformed
+        // TODO add your handling code here:
+        TelaFuncionario tela = new TelaFuncionario();
+        tela.setVisible(true);
+        Desktop.add(tela);
+                
+    }//GEN-LAST:event_MenCadFuncActionPerformed
 
     /**
      * @param args the command line arguments
