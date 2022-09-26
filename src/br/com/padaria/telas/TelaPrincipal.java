@@ -178,6 +178,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void MenCadFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFuncActionPerformed
         // TODO add your handling code here:
+        TelaFuncionario funcionario = new TelaFuncionario();
+        funcionario.setVisible(true);
+        Desktop.add(funcionario);
     }//GEN-LAST:event_MenCadFuncActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
