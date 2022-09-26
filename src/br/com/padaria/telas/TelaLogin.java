@@ -39,18 +39,22 @@ public void logar() {
         //se existir usuario e senha correspondente
         if (rs.next()){
             //a linha abaixo obtem o conteúdo do campo perfil da tabela tb usuarios
-            String perfil=rs.getString(6);
+            String perfil=rs.getString(5);
             //System.out.println(perfil);
             //a estrutura abaixo faz o tratamento do perfil do usuário
-            if (perfil.equals("admin")) {   
+            if (perfil.equals("Admin")) {   
             //chama a tela principal
             TelaPrincipal principal = new TelaPrincipal();
+//            principal.MenCadUsu.setEnabled(false);
+            TelaPrincipal.habilitaUsuario(true);
             principal.setVisible(true);
           
             this.dispose();
         }else{
             TelaPrincipal principal = new TelaPrincipal();
+            TelaPrincipal.habilitaUsuario(false);
             principal.setVisible(true);
+            
            
             this.dispose();
         }
@@ -93,6 +97,7 @@ public void logar() {
         lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Usuario");
 

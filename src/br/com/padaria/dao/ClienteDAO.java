@@ -4,7 +4,7 @@
  */
 package br.com.padaria.dao;
 
-import br.com.padaria.dal.ModuloConexao;
+
 import br.com.padaria.models.Cliente;
 import conexao.Conexao;
 import java.sql.Connection;

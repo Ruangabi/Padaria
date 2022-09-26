@@ -4,15 +4,27 @@
  */
 package br.com.padaria.models;
 
+import java.util.Date;
+
 /**
  *
  * @author Aluno
  */
 public class Fornecedor {
+    private int id;
     private int cnpj;
     private String nome;
     private String endereco;
+//    private Date criadoEm;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }    
+    
     public int getCnpj() {
         return cnpj;
     }
@@ -36,6 +48,13 @@ public class Fornecedor {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-    
-    
+
+//    public Date getCriadoEm() {
+//        return criadoEm;
+//    }
+//
+//    public void setCriadoEm(Date criadoEm) {
+//        this.criadoEm = criadoEm;
+//    }
+   
 }
