@@ -47,13 +47,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenCadCli = new javax.swing.JMenuItem();
         MenCadForn = new javax.swing.JMenuItem();
         MenCadFunc = new javax.swing.JMenuItem();
-        MenCadProd = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         MenCadUsu = new javax.swing.JMenuItem();
         MenCadVend = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(100, 100, 0, 0));
-        setPreferredSize(new java.awt.Dimension(900, 700));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -103,8 +102,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         MenCad.add(MenCadFunc);
 
-        MenCadProd.setText("Produto");
-        MenCad.add(MenCadProd);
+        jMenuItem1.setText("Produto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        MenCad.add(jMenuItem1);
 
         MenCadUsu.setText("Usuários");
         MenCadUsu.addActionListener(new java.awt.event.ActionListener() {
@@ -172,8 +176,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData.setText(formatador.format(data));
     }//GEN-LAST:event_formWindowActivated
 
+    private void MenCadFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFuncActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenCadFuncActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     public static void habilitaUsuario(boolean valor) {
         TelaPrincipal.MenCadUsu.setEnabled(valor);
+    }
+    
+    private void MenCadProdActionPerformed(java.awt.event.ActionEvent evt) {
+        
     }
     /**
      * @param args the command line arguments
@@ -216,10 +232,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenCadCli;
     private javax.swing.JMenuItem MenCadForn;
     private javax.swing.JMenuItem MenCadFunc;
-    private javax.swing.JMenuItem MenCadProd;
     public static javax.swing.JMenuItem MenCadUsu;
     private javax.swing.JMenu MenCadVend;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lblData;
     // End of variables declaration//GEN-END:variables
 }
