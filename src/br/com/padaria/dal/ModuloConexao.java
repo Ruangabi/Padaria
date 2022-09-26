@@ -30,7 +30,7 @@ public class ModuloConexao {
         } catch (Exception e) {
            //A linha abaixo serve de apoio para esclarecer o erro de conexao
             //Porém não posso devolver essa mensagem para o usuário
-           //System.out.println (e);
+           System.out.println (e);
             return null;
         }
     }
