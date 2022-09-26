@@ -7,6 +7,7 @@ package br.com.padaria.dal;
 import br.com.padaria.dal.ModuloConexao;
 import br.com.padaria.telas.CadCliente;
 import br.com.padaria.telas.CadCliente;
+import br.com.padaria.telas.TelaProduto;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -50,6 +51,7 @@ Connection conexao = null;
         MenCadVend = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         Desktop.setPreferredSize(new java.awt.Dimension(640, 480));
 
@@ -87,6 +89,11 @@ Connection conexao = null;
         MenCad.add(MenCadFunc);
 
         MenCadProd.setText("Produto");
+        MenCadProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenCadProdActionPerformed(evt);
+            }
+        });
         MenCad.add(MenCadProd);
 
         MenCadUsu.setText("Usuários");
@@ -125,7 +132,8 @@ Connection conexao = null;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 928, 563);
+        setSize(new java.awt.Dimension(928, 563));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenCadCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadCliActionPerformed
@@ -134,6 +142,13 @@ Connection conexao = null;
         cliente.setVisible(true);
         Desktop.add(cliente);
     }//GEN-LAST:event_MenCadCliActionPerformed
+
+    private void MenCadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadProdActionPerformed
+        // TODO add your handling code here:
+        TelaProduto produto =new TelaProduto();
+        produto.setVisible(true);
+//        Desktop.add(produto);
+    }//GEN-LAST:event_MenCadProdActionPerformed
 
     /**
      * @param args the command line arguments

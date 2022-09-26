@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class Produto {
 
     private String codigo_pro;
-    private String tipo;
+    private String descricao;
     private String nome;
     private BigDecimal valor_R$;
 
@@ -23,14 +23,6 @@ public class Produto {
 
     public void setCodigo_pro(String codigo_pro) {
         this.codigo_pro = codigo_pro;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getNome() {
@@ -47,6 +39,14 @@ public class Produto {
 
     public void setValor_R$(BigDecimal valor_R$) {
         this.valor_R$ = valor_R$;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
 }

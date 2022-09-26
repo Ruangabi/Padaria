@@ -43,6 +43,7 @@ public void logar() {
             if (perfil.equals("admin")) {   
             //chama a tela principal
             TelaPrincipal principal = new TelaPrincipal();
+//            principal.setExtendedState(TelaPrincipal.MAXIMIZED_BOTH);
             principal.setVisible(true);
           
             this.dispose();

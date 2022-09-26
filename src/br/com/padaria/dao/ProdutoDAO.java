@@ -5,8 +5,10 @@
 package br.com.padaria.dao;
 
 import br.com.padaria.dal.ModuloConexao;
-import br.com.padaria.models.Cliente;
+import br.com.padaria.models.Produto;
+
 import conexao.Conexao;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -17,75 +19,67 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Aluno
- */
-public class ClienteDAO {
+public class ProdutoDAO {
 
-    public List<Cliente> Select() throws SQLException, ClassNotFoundException {
+    public List<Produto> Select() throws SQLException, ClassNotFoundException {
 
         Connection con = Conexao.getConnection(); // Busca uma conexão com o banco de dados
         PreparedStatement stmt = null;
         ResultSet rs = null; // Objeto que armazena o resultado de uma busca em uma estrutura de dados que pode ser percorrida
 // Instanciando uma nova lista para receber os valores do banco
-        List<Cliente> clientes = new ArrayList<>();
+        List<Produto> produtos = new ArrayList<>();
 
         try {
             // Inserindo o comando SQL a ser usado
-            stmt = con.prepareStatement("SELECT * FROM cliente");
+            stmt = con.prepareStatement("SELECT * FROM produto");
             rs = stmt.executeQuery(); // Executa o comando SQL
             /* Loop responsável pela busca dos dados no banco que o repetirá até que não
  haja valores */
             while (rs.next()) {
 
-                Cliente cliente = new Cliente();
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setE_mail(rs.getString("e_mail"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setEndereco(rs.getString("endereco"));
-                clientes.add(cliente); // Adiciona o objeto na lista
+                Produto produto = new Produto();
+                produto.setCodigo_pro(rs.getString("codigo_pro"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor_R$(rs.getBigDecimal("valor_R$"));
+                produtos.add(produto);
+
             }
         } catch (SQLException ex) { // Tratamento das exceções
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return clientes;   // Retorna a lista
+        return produtos;   // Retorna a lista
     }
 
-    public Cliente SelectOne(String cpf) throws SQLException, ClassNotFoundException {
+    public Produto SelectOne(String codigo_pro) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.getConnection();
 
         PreparedStatement stmt = null;
 
         ResultSet rs = null;
-        Cliente cliente = new Cliente();
+        Produto produto = new Produto();
         try {
-            stmt = con.prepareStatement("SELECT * FROM cliente AS c WHERE c.cpf = ?");
-            stmt.setString(1, cpf);
+            stmt = con.prepareStatement("SELECT * FROM produto AS p WHERE p.codigo_pro = ?");
+            stmt.setString(1, codigo_pro);
 
             rs = stmt.executeQuery();
 
             while (rs.next()) {
 
-                cliente.setCpf(rs.getString("cpf"));
+                produto.setCodigo_pro(rs.getString("codigo_pro"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor_R$(rs.getBigDecimal("valor_R$"));
 
-                cliente.setNome(rs.getString("nome"));
-
-                cliente.setE_mail(rs.getNString("e_mail"));
-
-                cliente.setTelefone(rs.getString("telefone"));
-
-                cliente.setEndereco(rs.getString("endereco"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return cliente;
+        return produto;
     }
 
-    public void Insert(Cliente c) throws SQLException, ClassNotFoundException {
+    public void Insert(Produto p) throws SQLException, ClassNotFoundException {
 
         Connection con = Conexao.getConnection(); // Busca uma conexão com o banco de dados
 
@@ -96,15 +90,13 @@ public class ClienteDAO {
         try {
 
             // Inserindo o comando SQL a ser usado
-            stmt = con.prepareStatement("INSERT INTO cliente VALUES (?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO produto VALUES (?, ?, ?, ?)");
 
-            // O método setString, define que o valor passado será do tipo inteiro
-            stmt.setString(1, c.getCpf());
-            stmt.setString(2, c.getNome());
-            stmt.setString(3, c.getE_mail());
-            stmt.setString(4, c.getTelefone());
-            stmt.setString(5, c.getEndereco());
-
+            // O método setString, define que o valor passado será do tipo inteiro           
+            stmt.setString(1, p.getCodigo_pro());
+            stmt.setString(2, p.getDescricao());
+            stmt.setString(3, p.getNome());
+            stmt.setBigDecimal(4, p.getValor_R$());
             // Método responsável por fazer a alteração no banco de dados
             stmt.executeUpdate();
             con.commit();
@@ -124,19 +116,19 @@ public class ClienteDAO {
         }
     }
 
-    public List<Cliente> Pesquisar(String termo, String opcao) throws SQLException, ClassNotFoundException {
+    public List<Produto> Pesquisar(String termo, String opcao) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.getConnection(); // Busca uma conexão com o banco de dados
         PreparedStatement stmt = null;
         ResultSet rs = null; // Objeto que armazena o resultado de uma busca em uma estrutura de dados que pode ser percorrida
 // Instanciando uma nova lista para receber os valores do banco
-        List<Cliente> clientes = new ArrayList<>();
+        List<Produto> produtos = new ArrayList<>();
 
         try {
             // Inserindo o comando SQL a ser usado
             if (opcao.equals("Nome")) {
-                stmt = con.prepareStatement("SELECT * FROM cliente WHERE nome like ?");
+                stmt = con.prepareStatement("SELECT * FROM produto WHERE nome like ?");
             } else {
-                stmt = con.prepareStatement("SELECT * FROM cliente WHERE cpf like ?");
+                stmt = con.prepareStatement("SELECT * FROM produto WHERE codigo_pro like ?");
             }
             stmt.setString(1, "%" + termo + "%");
             rs = stmt.executeQuery(); // Executa o comando SQL
@@ -144,31 +136,31 @@ public class ClienteDAO {
  haja valores */
             while (rs.next()) {
 
-                Cliente cliente = new Cliente();
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setE_mail(rs.getString("e_mail"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setEndereco(rs.getString("endereco"));
-                clientes.add(cliente); // Adiciona o objeto na lista
+                Produto produto = new Produto();
+                produto.setCodigo_pro(rs.getString("codigo_pro"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor_R$(rs.getBigDecimal("valor_R$"));
+                produtos.add(produto);
+                // Adiciona o objeto na lista
             }
         } catch (SQLException ex) { // Tratamento das exceções
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return clientes;
+        return produtos;
     }
 
-    public void Update(Cliente cliente) throws SQLException, ClassNotFoundException {
+    public void Update(Produto produto) throws SQLException, ClassNotFoundException {
         Connection con = Conexao.getConnection();
         con.setAutoCommit(false);
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("UPDATE cliente SET nome = ?, e_mail= ?, telefone = ?, endereco =? WHERE cpf = ?");
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getE_mail());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setString(4, cliente.getEndereco());
-            stmt.setString(5, cliente.getCpf());
+            stmt = con.prepareStatement("UPDATE produto SET descricao = ?, nome= ?, valor_R$ = ? WHERE codigo_pro = ?");
+
+            stmt.setString(1, produto.getDescricao());
+            stmt.setString(2, produto.getNome());
+            stmt.setBigDecimal(3, produto.getValor_R$());
+            stmt.setString(4, produto.getCodigo_pro());
             stmt.executeUpdate();
             con.commit();
         } catch (SQLException ex) {
@@ -184,10 +176,5 @@ public class ClienteDAO {
             con.setAutoCommit(true);
         }
     }
-
-
-    
-  
-
 
 }
