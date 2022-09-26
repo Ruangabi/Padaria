@@ -8,7 +8,7 @@ package br.com.padaria.models;
  *
  * @author Aluno
  */
-public class Usuarios {
+public class Usuario {
 
     private int iduser;
     private String fone;

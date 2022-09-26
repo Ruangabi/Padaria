@@ -6,7 +6,6 @@ package br.com.padaria.telas;
 
 import br.com.padaria.dao.ClienteDAO;
 import br.com.padaria.models.Cliente;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EventObject;

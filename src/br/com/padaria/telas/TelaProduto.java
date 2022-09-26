@@ -6,7 +6,6 @@ package br.com.padaria.telas;
 
 import br.com.padaria.dao.ProdutoDAO;
 import br.com.padaria.models.Produto;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;

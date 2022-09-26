@@ -7,19 +7,20 @@ package br.com.padaria.dal;
 import br.com.padaria.dal.ModuloConexao;
 import br.com.padaria.telas.CadCliente;
 import br.com.padaria.telas.CadCliente;
-import br.com.padaria.telas.TelaProduto;
+import br.com.padaria.telas.CadFornecedor;
+import br.com.padaria.telas.CadUsuario;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.*;
-
 
 /**
  *
  * @author Aluno
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-Connection conexao = null;
+
+    Connection conexao = null;
 
     /**
      * Creates new form TelaPrincipal
@@ -39,21 +40,26 @@ Connection conexao = null;
     private void initComponents() {
 
         Desktop = new javax.swing.JDesktopPane();
-        lblUsuario = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenCad = new javax.swing.JMenu();
         MenCadCli = new javax.swing.JMenuItem();
         MenCadForn = new javax.swing.JMenuItem();
         MenCadFunc = new javax.swing.JMenuItem();
-        MenCadProd = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         MenCadUsu = new javax.swing.JMenuItem();
         MenCadVend = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(100, 100, 0, 0));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
-        Desktop.setPreferredSize(new java.awt.Dimension(640, 480));
+        Desktop.setPreferredSize(new java.awt.Dimension(900, 700));
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
@@ -63,11 +69,8 @@ Connection conexao = null;
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
+            .addGap(0, 777, Short.MAX_VALUE)
         );
-
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblUsuario.setText("Usuário");
 
         lblData.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblData.setText("Data");
@@ -83,20 +86,35 @@ Connection conexao = null;
         MenCad.add(MenCadCli);
 
         MenCadForn.setText("Fornecedor");
+        MenCadForn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenCadFornActionPerformed(evt);
+            }
+        });
         MenCad.add(MenCadForn);
 
         MenCadFunc.setText("Funcionário");
-        MenCad.add(MenCadFunc);
-
-        MenCadProd.setText("Produto");
-        MenCadProd.addActionListener(new java.awt.event.ActionListener() {
+        MenCadFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenCadProdActionPerformed(evt);
+                MenCadFuncActionPerformed(evt);
             }
         });
-        MenCad.add(MenCadProd);
+        MenCad.add(MenCadFunc);
+
+        jMenuItem1.setText("Produto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        MenCad.add(jMenuItem1);
 
         MenCadUsu.setText("Usuários");
+        MenCadUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenCadUsuActionPerformed(evt);
+            }
+        });
         MenCad.add(MenCadUsu);
 
         jMenuBar1.add(MenCad);
@@ -112,44 +130,66 @@ Connection conexao = null;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUsuario)
-                    .addComponent(lblData))
-                .addGap(89, 89, 89))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblData)
+                .addGap(102, 102, 102))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(lblUsuario)
-                .addGap(44, 44, 44)
+                .addGap(185, 185, 185)
                 .addComponent(lblData)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(928, 563));
+        setSize(new java.awt.Dimension(916, 708));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenCadCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadCliActionPerformed
         // TODO add your handling code here:
-        CadCliente cliente = new CadCliente ();
+        CadCliente cliente = new CadCliente();
         cliente.setVisible(true);
         Desktop.add(cliente);
     }//GEN-LAST:event_MenCadCliActionPerformed
 
-    private void MenCadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadProdActionPerformed
+    private void MenCadFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFornActionPerformed
         // TODO add your handling code here:
-        TelaProduto produto =new TelaProduto();
-        produto.setVisible(true);
-//        Desktop.add(produto);
-    }//GEN-LAST:event_MenCadProdActionPerformed
+        CadFornecedor fornecedor = new CadFornecedor();
+        fornecedor.setVisible(true);
+        Desktop.add(fornecedor);
+    }//GEN-LAST:event_MenCadFornActionPerformed
 
+    private void MenCadUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadUsuActionPerformed
+        // TODO add your handling code here:
+        CadUsuario usuario = new CadUsuario();
+        usuario.setVisible(true);
+        Desktop.add(usuario);
+    }//GEN-LAST:event_MenCadUsuActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        Date data = new Date();
+        DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
+        lblData.setText(formatador.format(data));
+    }//GEN-LAST:event_formWindowActivated
+
+    private void MenCadFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenCadFuncActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenCadFuncActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    public static void habilitaUsuario(boolean valor) {
+        TelaPrincipal.MenCadUsu.setEnabled(valor);
+    }
+    
+    private void MenCadProdActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -191,11 +231,10 @@ Connection conexao = null;
     private javax.swing.JMenuItem MenCadCli;
     private javax.swing.JMenuItem MenCadForn;
     private javax.swing.JMenuItem MenCadFunc;
-    private javax.swing.JMenuItem MenCadProd;
-    private javax.swing.JMenuItem MenCadUsu;
+    public static javax.swing.JMenuItem MenCadUsu;
     private javax.swing.JMenu MenCadVend;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }
